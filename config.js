@@ -8,7 +8,7 @@ module.exports = {
   staticPath: path.join(__dirname, './static'), // 静态服务地址
   should_mysql_association: true, // mysql是否需要关联外键
   mysql_setting:{ // mysql数据库配置
-    database: "share_db",
+    database: "lighthouse_db",
     user: "root",
     password: "root",
     host: "localhost",
@@ -20,7 +20,7 @@ module.exports = {
     port: 6379
   },
   email_setting:{ // 邮箱服务配置
-    name:'笺言官方',
+    name:'绿灯官方',
     user:"3598906343@qq.com",// 邮箱账户
     pass:"metmcscgsbqadbif",// smtp 的授权码
   },

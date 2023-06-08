@@ -20,12 +20,12 @@ sequelize.authenticate().then( ()=>{
 })
 
 // 同步所有模型alter force
-// config.should_mysql_association = false
-// sequelize.sync({ force: true }).then(res =>{
-//   console.log("-----------------------------------------所有模型已同步成功-----------------------------------------");
-//   config.should_mysql_association = true
-// }).catch(err => {
-//   console.log(`-----------------------------------------模型同步失败-----------------------------------------:\n${err}`);
-// });
-
+config.should_mysql_association = true 
+sequelize.sync({ force: true }).then(res =>{
+  console.log("-----------------------------------------所有模型已同步成功-----------------------------------------");
+  config.should_mysql_association = true
+}).catch(err => {
+  console.log(`-----------------------------------------模型同步失败-----------------------------------------:\n${err}`);
+});
+ 
 module.exports = sequelize
