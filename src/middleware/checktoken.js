@@ -1,6 +1,6 @@
 const jwt = require('../util/jwt') // 引入封装的jsonwebtoken
 const HttpException = require('../util/httpexception');
-const passed_route = ['login','register','verify'];
+const passed_route = ['login','register','verify','image'];
 /* 验证token的中间件 */
 let checkToken = async (ctx,next)=>{
   const route = ctx.url.toLocaleLowerCase();
