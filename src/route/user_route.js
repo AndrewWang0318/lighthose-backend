@@ -1,5 +1,5 @@
 const Router = require('koa-router'); // 引入koa-router
-const user = new Router({prefix:'/user'});
+const user = new Router({prefix:'/user'});// 路由前缀
 const userController = require('../controller/user_controller');
 
 

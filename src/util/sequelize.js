@@ -19,13 +19,13 @@ sequelize.authenticate().then( ()=>{
   console.log('\x1b[33m%s\x1b[0m',`Mysql数据库发生错误:\n${err}`)
 })
 
-// 同步所有模型alter force
-config.should_mysql_association = true 
-sequelize.sync({ force: true }).then(res =>{
-  console.log("-----------------------------------------所有模型已同步成功-----------------------------------------");
-  config.should_mysql_association = true
-}).catch(err => {
-  console.log(`-----------------------------------------模型同步失败-----------------------------------------:\n${err}`);
-});
+// 同步所有模型alter force,
+// config.should_mysql_association = true // 同步模型前需要先将config.should_mysql_association改为false后再同步,然创建表格再联系外联
+// sequelize.sync({ force: true }).then(res =>{
+//   console.log("-----------------------------------------所有模型已同步成功-----------------------------------------");
+//   config.should_mysql_association = true
+// }).catch(err => {
+//   console.log(`-----------------------------------------模型同步失败-----------------------------------------:\n${err}`);
+// });
  
 module.exports = sequelize
