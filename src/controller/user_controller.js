@@ -26,7 +26,7 @@ class UserController {
     const { user_name,user_password  } = ctx.request.body;
     let user_password_encrypt = md5(config.md5_secret + user_password); // md5加密密码
     let user_nickname = Mock.Random.name(); // 随机昵称
-    let user_avatar = `${config.protocol}${config.netWorkAddress}:${config.port}/avatar/default_avatar${Math.floor(Math.random()*12) + 1}.jpeg`; // 随机默认头像
+    let user_avatar = `${config.protocol}${config.netWorkAddress}:${config.port}/image/avatar/default_avatar${Math.floor(Math.random()*12) + 1}.jpeg`; // 随机默认头像
     const res = await createUser(user_name,user_password_encrypt,user_nickname,user_avatar);
     if(res.dataValues) ctx.response.body = { code:0,msg:'注册成功' };
   }
