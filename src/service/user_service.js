@@ -1,5 +1,6 @@
 const { User } = require('../model');
 const HttpException = require('../util/httpexception');
+
 class UserSerVice {
   // 根据用户名查询用户是否存在
   async checkUserFromName(user_name){
@@ -36,10 +37,9 @@ class UserSerVice {
     return data
   }
   // 修改用户头像
-  async updateUserAvatar(user_id,user_avatar,user_avatar_id){
+  async updateUserAvatar(user_id,user_avatar){
     const data = await User.update({
-      user_avatar,
-      user_avatar_id
+      user_avatar
     },{
       where: { user_id }
     }).catch((err)=>{
@@ -71,5 +71,7 @@ class UserSerVice {
     return data
   }
 }
+
+// 报错信息不应该在service层处理,应转向controller层
 
 module.exports = new UserSerVice()

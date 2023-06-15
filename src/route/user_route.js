@@ -10,8 +10,8 @@ user.post('/updateUserAvatar',userController.updateAvatar) // 修改头像接口
 user.post('/updateUserPassword',userController.updatePassword) // 修改密码
 user.post('/updateUserEmail',userController.updateEmail) // 修改邮箱
 
-user.post('/updateUserEmail/sendEmailCode',emailController.sendEmailCode) // 发送邮箱验证码
-user.post('/updateUserEmail/verifyEmailCode',emailController.verifyEmailCode) // 检查邮箱验证码
+user.post('/sendEmailCode',emailController.sendEmailCode) // 发送邮箱验证码
+user.post('/verifyEmailCode',emailController.verifyEmailCode) // 检查邮箱验证码
 
 
 module.exports = user

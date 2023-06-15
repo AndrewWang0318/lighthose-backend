@@ -32,7 +32,7 @@ class UserController {
   // 修改基本信息
   async updateInfo(ctx,next){
     const { user_id,user_name,user_nickname,user_sex,user_birth,user_signature,user_locat } = ctx.request.body// 如果不修改某项可不上传
-    await updateUserInfo(user_id,user_name,user_nickname,user_sex,user_birth,user_signature,user_locat); 
+    await updateUserInfo(user_id,user_name,user_nickname,user_sex,user_birth,user_signature,user_locat);
     ctx.response.body = { msg:'修改成功',code:0 }
   }
   // 修改密码
@@ -40,36 +40,30 @@ class UserController {
     const { user_id,user_name,user_old_password,user_new_password } = ctx.request.body; // 获取上传参数
     let user_old_password_encrypt = md5(config.md5_secret + user_old_password); // md5加密后的旧密码
     let user_user_new_password = md5(config.md5_secret + user_new_password); // md5加密后的新密码
-
     await updateUserPassword(user_id,user_name,user_old_password_encrypt,user_user_new_password); // 修改
-
     ctx.response.body = { msg:'修改成功',code:0 }
   }
   // 修改头像
   async updateAvatar(ctx,next){
-    const { user_id,user_name,avatar_type } = ctx.request.body; // 获取上传参数
+    const { user_id,avatar_type } = ctx.request.body; // 获取上传参数
+    let user_avatar = ""
     if(avatar_type == 1){ // 文件上传方式
       const { avatar_file } = ctx.request.files; // 获取上传文件
       let file_res = await writeFiles(avatar_file);
       if(file_res.code !== 0) throw new HttpException('文件上传失败',412,1412);
-      let user_avatar = file_res.data[0].file_url;
-      let res = await updateUserAvatar(user_id,user_name,user_avatar);
-      ctx.response.body = { msg:'头像修改成功',code:0 }
+      user_avatar = file_res.data[0].file_url;
     }else{ // 随机头像方式
       let randomNum = Math.floor(Math.random()*12) + 1; // 随机1-12
-      let user_avatar = `${config.protocol}${config.netWorkAddress}:${config.port}/avatar/default_avatar${randomNum}.jpeg`; // 设置文件的线上目录和文件名
-      let res = await updateUserAvatar(user_id,user_name,user_avatar);
-      ctx.response.body = { msg:'头像修改成功',code:0 }
+      user_avatar = `${config.protocol}${config.netWorkAddress}:${config.port}/image/avatar/default_avatar${randomNum}.jpeg`; // 设置文件的线上目录和文件名
     }
+    await updateUserAvatar(user_id,user_avatar);
+    ctx.response.body = { msg:'头像修改成功',code:0 }
   }
   // 修改邮箱
   async updateEmail(ctx,next){
     const { user_id,user_email } = ctx.request.body; // 获取上传参数
-
     let key = $COMMON.base64(`${config.session_redis_secret}_${user_id}_el`);
     let code = await redis.get(key);
-    
-
     if(code){
       throw new HttpException('修改失败,验证码未验证',400,1400); // 验证码如果错误则不让修改
     }
