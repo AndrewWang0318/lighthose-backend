@@ -17,7 +17,7 @@ class UserController {
     let user_info = res.dataValues;
     let user_password_encrypt = md5(config.md5_secret + user_password);
     if(user_info.user_password !== user_password_encrypt) throw new HttpException('密码错误',400,1400);
-    let token = jwt.createToken({ user_info })
+    let token = jwt.createToken({ user_info:{user_id:user_info.user_id} })
     ctx.response.body = { code:0,msg:'登录成功',user_info,token }
   }
   // 注册

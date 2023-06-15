@@ -1,4 +1,5 @@
 /* 自定义复用函数 */
+const config = require('../../config'); // 引入配置文件
 class Common {
   rondomString(number = 6){ // 随机生成字符传
     var backArr = new Array;
@@ -42,32 +43,12 @@ class Common {
     else { file_type = 'other' }
     return file_type
   }
-  emailHtmlTemplate( email_type,rondom_code,user_nickname="" ){ // 返回email的html内容
+  emailHtmlTemplate(rondom_code,user_nickname="" ){ // 返回email的html内容
     // err:email_register(通过邮箱注册);upd:update_password(修改密码);voel:verify_old_email(验证旧邮箱);vnel:verify_new_email(验证新邮箱);
-    let email_title,operate_text,email_html;// 发送邮件的标题,执行的操作,返回的内容
-    switch (email_type) {
-      case 'err':
-        email_title = '笺言账号安全中心-注册操作提醒'
-        operate_text = '通过邮箱注册'
-        break;
-      case 'upd':
-        email_title = '笺言账号安全中心-改密操作提醒'
-        operate_text = '修改登录密码'
-        break;
-      case 'voel':
-        email_title = '笺言账号安全中心-验证旧邮箱操作提醒'
-        operate_text = '验证旧邮箱'
-        break;
-      case 'vnel': 
-        email_title = '笺言账号安全中心-确认新邮箱操作提醒'
-        operate_text = '确认新邮箱'
-        break;
-      default:
-        break;
-    }
-    email_html = `<div>
-    <div>尊敬的笺言用户${user_nickname}您好:</div>
-      <div style="text-indent: 16px;">您正在进行${operate_text}的操作,本次请求的邮件验证码是:
+    let email_title = `${config.app_ch_name}账号安全中心`;// 发送邮件的标题,执行的操作,返回的内容
+    let email_html = `<div>
+    <div>尊敬的${config.app_ch_name}用户${user_nickname}您好:</div>
+      <div style="text-indent: 16px;">您正在进行确认新邮箱的操作,本次请求的邮件验证码是:
         <span style="color: blue;">${rondom_code}</span>
         (为了保证您的账号安全性,请您在30分钟内完成设置)
       </div>

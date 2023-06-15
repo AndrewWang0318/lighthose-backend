@@ -2,7 +2,7 @@
 const nodemailer = require('nodemailer');
 const config = require('../../config') // 引入配置文件
 
-const email_name = config.email_setting.name;
+const email_name = config.app_ch_name;
 const email_user = config.email_setting.user;
 const email_smtp = config.email_setting.pass;
 
@@ -17,7 +17,7 @@ let transporter = nodemailer.createTransport({
 });
 
 class NodeMailer {
-  async sendMail( email_target,subject="生态圈官方",html=""){
+  async sendMail( email_target,subject=`${email_name}官方`,html=""){
     // 发送的配置项
     let options = {
       from:  `"${email_name}" <${email_user}>`, // 发送方

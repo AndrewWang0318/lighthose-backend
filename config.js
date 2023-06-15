@@ -1,6 +1,7 @@
 const path = require('path'); // 引入path
 const mode = process.env.npm_lifecycle_event.includes(':dev') ? 'develop' : 'production'; // 通过npm启动环境判断是生产环境还是开发环境
 module.exports = {
+  app_ch_name:'绿灯',
   environment: mode, // 环境
   protocol:'http://', // 网络协议
   netWorkAddress:mode == "production" ? '101.35.193.41' : '127.0.0.1', // ip
@@ -20,7 +21,6 @@ module.exports = {
     port: 6379
   },
   email_setting:{ // 邮箱服务配置
-    name:'绿灯官方',
     user:"3598906343@qq.com",// 邮箱账户
     pass:"metmcscgsbqadbif",// smtp 的授权码
   },
