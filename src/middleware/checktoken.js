@@ -10,9 +10,10 @@ let checkToken = async (ctx,next)=>{
     await next();// 进入下一个中间件
   }else{
     let authorization = ctx.request.header['authorization'];
-    if(!authorization) throw new HttpException('token不存在,请重登录',401,1401)
-    let token = authorization.split(' ')[1]
-    let res = jwt.verifyToken(token) // 验证token的结果,res包含用户的uid[未加密]
+    if(!authorization) throw new HttpException('token不存在,请重登录',401,1401);
+    let token = authorization.split(' ')[1];
+    let user_id = ctx.request.body.user_id
+    jwt.verifyToken(token,user_id) // 验证token的结果并判断是否为当前用户,res包含用户的uid[未加密]
     await next();
   }
 }
