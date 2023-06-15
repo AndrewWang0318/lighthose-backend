@@ -4,6 +4,7 @@ const $COMMON = require('../util/common'); // 引入公用方法
 const jwt = require('../util/jwt'); // 引入jwt封装的token
 const HttpException = require('../util/httpexception'); // 引入错误抛出工具
 const redis = require('../util/redis'); // 引入redis工具
+const redistool = require('../util/redis'); // 引入redis工具
 const Mock = require('mockjs'); // 引入mock用来随机生成用户部分信息
 const { createUser, checkUserFromName,updateUserInfo,updateUserAvatar,updateUserPassword, updateUserEmail } = require('../service/user_service');
 const { writeFiles } = require('../util/filedeal'); // 写入文件
@@ -62,14 +63,12 @@ class UserController {
   // 修改邮箱
   async updateEmail(ctx,next){
     const { user_id,user_email } = ctx.request.body; // 获取上传参数
-    let key = $COMMON.base64(`${config.session_redis_secret}_${user_id}_el`);
-    let code = await redis.get(key);
-    if(code){
-      throw new HttpException('修改失败,验证码未验证',400,1400); // 验证码如果错误则不让修改
-    }
-
-    let res = await updateUserEmail(user_id,user_email); // 修改
-
+    const user_key =  md5(config.md5_secret + user_email);
+    let key = $COMMON.base64(`${config.session_redis_secret}_${user_key}`);
+    let str_data = await redistool.get(key);
+    let obj_data = str_data ? JSON.parse(str_data) : {};
+    if(obj_data.status != 1) throw new HttpException('修改失败,验证码未验证',400,1400); // 验证码如果错误则不让修改
+    await updateUserEmail(user_id,user_email); // 修改
     redis.destroy(key);// 验证成功后删除key
     ctx.response.body = { msg:'修改成功',code:0 }
   }

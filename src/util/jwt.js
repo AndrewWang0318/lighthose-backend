@@ -8,8 +8,11 @@ class Token {
   createToken = (payload = {}) =>{ // 创建token
     return jwt.sign(payload,secret,{expiresIn:"1day"}) // token签名 有效期为1天
   }
-  verifyToken = (token,user_id) => { // 验证token
-    return jwt.verify(token,secret,(err,decoded) => {
+  verifyToken = (token,params) => { // 验证token
+    
+
+    return jwt.verify(token,secret,(err,decoded_token) => {
+      let params_user_id = params.user_id;
       if(err){ // 错误返回
         switch (err.name) {
           case "TokenExpiredError":// token 过期
@@ -19,10 +22,10 @@ class Token {
           default:
             throw new HttpException(err.message,401,1401);
         }
-      }else if(user_id && decoded.user_id != user_id){ // 判断是否为当前用户
-        throw new HttpException('token错误,请重新登录!',401,1401)
+      }else if(params_user_id && params_user_id != decoded_token.user_info.user_id){ // 判断是否为当前用户
+        throw new HttpException('操作者非使用用户,请重新登录!',401,1401)
       } else { // 正确返回
-        return { ...decoded };
+        return { ...decoded_token };
       }
     })
   }
