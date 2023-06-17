@@ -63,7 +63,7 @@ async function writeSingleFile(file){ // 写入单个文件
   const timestamp = new Date().getTime(); // 获取时间戳,用于不重复命名
   const rondom_string = $COMMON.rondomString(8); // 8位随机字符串,用于不重复命名
   const file_src = config.staticPath + `\\${file_type}` + `\\${rondom_string}_${timestamp}.${file_extension}`; // 文件上传后的本地路径
-  const file_url = `${config.protocol}${config.netWorkAddress}:${config.port}` + `/${file_type}` + `/${rondom_string}_${timestamp}.${file_extension}`; // 文件上传后的线上路径
+  const file_url = `/${file_type}/${rondom_string}_${timestamp}.${file_extension}`; // 文件上传后的线上路径
   const readStream = fs.createReadStream(file_origin_src); // 创建可读流
   const writeStream = fs.createWriteStream(file_src); // 创建可写流
   readStream.pipe(writeStream);// 可读流通过管道写入可写流

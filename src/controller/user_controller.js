@@ -26,7 +26,7 @@ class UserController {
     const { user_name,user_password  } = ctx.request.body;
     let user_password_encrypt = md5(config.md5_secret + user_password); // md5加密密码
     let user_nickname = Mock.Random.name(); // 随机昵称
-    let user_avatar = `${config.protocol}${config.netWorkAddress}:${config.port}/image/avatar/default_avatar${Math.floor(Math.random()*12) + 1}.jpeg`; // 随机头像
+    let user_avatar = `/image/avatar/default_avatar${Math.floor(Math.random()*12) + 1}.jpeg`; // 随机头像
     const res = await createUser(user_name,user_password_encrypt,user_nickname,user_avatar);
     if(res.dataValues) ctx.response.body = { code:0,msg:'注册成功' };
   }
@@ -55,10 +55,12 @@ class UserController {
       user_avatar = file_res.data[0].file_url;
     }else{ // 随机头像方式
       let randomNum = Math.floor(Math.random()*12) + 1; // 随机1-12
-      user_avatar = `${config.protocol}${config.netWorkAddress}:${config.port}/image/avatar/default_avatar${randomNum}.jpeg`; // 设置文件的线上目录和文件名
+      // user_avatar = `${config.protocol}${config.netWorkAddress}:${config.port}/image/avatar/default_avatar${randomNum}.jpeg`; // 设置文件的线上目录和文件名
+      user_avatar = `/image/avatar/default_avatar${randomNum}.jpeg`; // 设置文件的线上目录和文件名
     }
     await updateUserAvatar(user_id,user_avatar);
-    ctx.response.body = { msg:'头像修改成功',code:0 }
+
+    ctx.response.body = { msg:'头像修改成功',code:0,user_avatar }
   }
   // 修改邮箱
   async updateEmail(ctx,next){
