@@ -13,7 +13,8 @@ const User = sequelize.define('User',{ // Sequelize 会自动将模型名复数�
   user_email:{ type:DataTypes.STRING(32),unique:true, comment:'邮箱' },
   user_phone:{ type:DataTypes.STRING(16), comment:'电话' },
   user_locat:{ type:DataTypes.STRING(128), comment:'地址' },
-  user_avatar:{ type:DataTypes.STRING(255), comment:'头像地址' },
+  user_avatar:{ type:DataTypes.STRING(255), comment:'头像' },
+  user_bg:{ type:DataTypes.STRING(255), comment:'背景' },
   user_authority:{ type:DataTypes.INTEGER(2), defaultValue: 0, comment:'权限' }
 },{
   timestamps: true, // 创建时间和更新时间,默认为开启状态,这意味着直接 SQL 查询(例如,通过任何其他方式在不使用 Sequelize 的情况下执行的查询)将不会导致这些字段自动更新.

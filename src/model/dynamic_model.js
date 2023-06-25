@@ -1,16 +1,19 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../util/sequelize');
+const { DataTypes } = require("sequelize");
+const sequelize = require("../util/sequelize");
 
 // 创建文章数据模型
-const Dynamic = sequelize.define('Dynamic',{
-  dynamic_id:{ type:DataTypes.INTEGER(8), allowNull:false, unique:true, autoIncrement:true, primaryKey:true,comment:'文章id' },
-  dynamic_text:{type:DataTypes.TEXT, comment:'文章内容'},
-  dynamic_media_url:{ type:DataTypes.TEXT,comment:'分享的媒体文件地址'},
+const Dynamic = sequelize.define(
+  "Dynamic",
+  {
+    dynamic_id: { type: DataTypes.INTEGER(8),allowNull: false,unique: true,autoIncrement: true,primaryKey: true,comment: "文章id"},
+    dynamic_user_id: { type: DataTypes.INTEGER(8), comment: "发布者id" },
+    dynamic_content: { type: DataTypes.TEXT, comment: "文章内容" },
+    dynamic_media: { type: DataTypes.TEXT, comment: "分享的媒体文件地址" },
+    type: { type: DataTypes.INTEGER(2), defaultValue: 1, comment: "类型" }, // 用于区分评论,回复,点赞 所对应的类型
+  },
+  {
+    underscored: true,
+  }
+);
 
-  dynamic_user_id:{ type:DataTypes.INTEGER(8),comment:'发布者id' },
-  dynamic_module_id:{ type:DataTypes.INTEGER(8),defaultValue: 4,comment:'评论的模块id' },
-},{
-  underscored: true 
-})
-
-module.exports = Dynamic
+module.exports = Dynamic;

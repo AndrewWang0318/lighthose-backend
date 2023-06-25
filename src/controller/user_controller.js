@@ -16,6 +16,7 @@ class UserController {
     let res = await checkUserFromName(user_name);
     if(!res) throw new HttpException('用户不存在',200,1400);
     let user_info = res.dataValues;
+
     let user_password_encrypt = md5(config.md5_secret + user_password);
     if(user_info.user_password !== user_password_encrypt) throw new HttpException('密码错误',400,1400);
     let token = jwt.createToken({ user_info:{user_id:user_info.user_id} })
