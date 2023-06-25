@@ -1,6 +1,12 @@
 node_modules
-static/audio
-static/book
-static/image
-static/other
-static/video
+./static
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
