@@ -1,7 +1,7 @@
 const path = require('path'); // 引入path
 const mode = process.env.npm_lifecycle_event.includes(':dev') ? 'develop' : 'production'; // 通过npm启动环境判断是生产环境还是开发环境
 module.exports = {
-  app_ch_name:'绿灯',
+  app_ch_name:'灯塔',
   environment: mode, // 环境
   protocol:'http://', // 网络协议
   netWorkAddress:mode == "production" ? '101.35.193.41' : '127.0.0.1', // ip
