@@ -1,12 +1,11 @@
-const { Like } = require('../models/model');
-const HttpException = require('../utils/httpexception');
+const { Like } = require('../model');
+const HttpException = require('../util/httpexception'); // 引入错误抛出工具
 class LikeService {
   // 新增赞
-  async createLike(like_user_id,like_guide_id,module_id){
+  async createLike(like_dynamic_id,like_user_id){
     const data = await Like.create({
+      like_dynamic_id,
       like_user_id,
-      like_guide_id,
-      module_id
     }).catch((err)=>{
       throw new HttpException(err.errors[0].message)
     })
@@ -24,19 +23,13 @@ class LikeService {
     })
     return data
   }
-  // 查询点赞[模块引导id及模块id]
-  async retrieveLike(like_guide_id,module_id){
+  
+  // 查询点赞(用于判断是否已经点过赞)
+  async retrieveLike(like_dynamic_id,like_user_id){
     const data = await Like.findAll({
-      attributes: { exclude: [ 'module_id','like_guide_id','like_user_id','updatedAt' ] }, // 排除部分属性
-      include:[
-        {
-          association: 'like_user',
-          attributes: ['user_id','user_nickname','user_avatar' ], // 只需要某些属性
-        }
-      ],
       where: {
-        like_guide_id,
-        module_id,
+        like_dynamic_id,
+        like_user_id,
       }
     }).catch((err)=>{
       throw new HttpException(err.message)

@@ -6,9 +6,8 @@ const Like = sequelize.define('Like',{
   like_id:{ type:DataTypes.INTEGER(8), allowNull:false, unique:true, autoIncrement:true, primaryKey:true,comment:'点赞的id' },
   like_user_id:{ type:DataTypes.INTEGER(8),comment:'点赞的用户id' },
 
-  like_guide_id:{ type:DataTypes.INTEGER(8),comment:'其他模块的主键id'},
+  like_dynamic_id:{ type:DataTypes.INTEGER(8),comment:'评论表主键id'}, // 评论
 
-  module_id:{ type:DataTypes.INTEGER(2),comment:'点赞属于的模块id' },// 1.动态
 },{
   underscored: true 
 })
