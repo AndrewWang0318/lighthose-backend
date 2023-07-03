@@ -9,7 +9,7 @@ const Dynamic = sequelize.define(
     dynamic_user_id: { type: DataTypes.INTEGER(8), comment: "发布者id" },
     dynamic_content: { type: DataTypes.TEXT, comment: "文章内容" },
     dynamic_media: { type: DataTypes.TEXT, comment: "分享的媒体文件地址" },
-    type: { type: DataTypes.INTEGER(2), defaultValue: 1, comment: "类型" }, // 用于区分评论,回复,点赞 所对应的类型
+    type: { type: DataTypes.INTEGER(2), defaultValue: 1, comment: "类型" }// 用于区分属于哪个模块:1.动态
   },
   {
     underscored: true,

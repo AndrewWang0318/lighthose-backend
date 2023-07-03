@@ -13,20 +13,31 @@ const Comment = sequelize.define(
       primaryKey: true,
       comment: "评论id",
     },
+    comment_dynamic_id:{
+      type: DataTypes.INTEGER(8),
+      comment: "评论的动态id",
+    },
     comment_user_id: {
       type: DataTypes.INTEGER(8),
       comment: "评论的用户id",
     },
-    comment_fater_id: {
+
+    comment_father_id: {
       type: DataTypes.INTEGER(8),
       comment: "评论的目标id",
     },
+    comment_to_user_id: {
+      type: DataTypes.INTEGER(8),
+      comment: "向谁评论用户id",
+    },
+
     comment_content: {
       type: DataTypes.TEXT,
       comment: "评论的内容",
     },
-    comment_type: {
-      type: DataTypes.INTEGER(8),
+    type: {
+      type: DataTypes.INTEGER(2),
+      defaultValue: 1,
       comment: "评论的类型",
     }, // 用于区分属于哪个模块:1.动态
   },
