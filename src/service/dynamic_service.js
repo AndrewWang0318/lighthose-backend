@@ -36,24 +36,24 @@ class DynamicSerVice {
             }
           ],
         },
-        // {
-        //   association: 'dynamic_comment',// 关联评论表
-        //   attributes: [ 'comment_id','createdAt' ],
-        //   where:{ 
-        //     'comment_guide_id': { [Op.col]: 'Dynamic.dynamic_id' } 
-        //   },
-        //   required: false,
-        //   include:[ // 内部仍需要关联,需要继续include,以及attributes
-        //     {
-        //       association: 'comment_user',
-        //       attributes: ['user_id','user_nickname','user_avatar' ],
-        //     },
-        //     {
-        //       association: 'comment_parent',
-        //       attributes: ['user_id','user_nickname','user_avatar' ],
-        //     },
-        //   ],
-        // },
+        {
+          association: 'dynamic_comment',// 关联评论表
+          attributes: [ 'comment_id',"comment_father_id",'comment_content','createdAt' ],
+          where:{ 
+            'comment_dynamic_id': { [Op.col]: 'Dynamic.dynamic_id' } 
+          },
+          required: false,
+          include:[ // 内部仍需要关联,需要继续include,以及attributes
+            {
+              association: 'comment_user',
+              attributes: ['user_id','user_nickname','user_avatar' ],
+            },
+            {
+              association: 'comment_to_user',
+              attributes: ['user_id','user_nickname','user_avatar' ],
+            },
+          ],
+        },
         
       ],
       // include: { all: true, nested: true }, // 递归获取与用户及其嵌套关联关联的所有模型[但同时两个外键指引无法处理会将所有关联的返回在实例上]

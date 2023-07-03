@@ -28,8 +28,10 @@ if(config.should_mysql_association){// 是否允许mysql使用外键,防止数�
   // User.hasMany( Comment, { as:'comment_parent', foreignKey: 'comment_to_user_id' })
 
   // Dyanmic与各表关系
-  Dynamic.belongsTo( User, { as:'dynamic_user', foreignKey: 'dynamic_user_id' })
-  Dynamic.hasMany( Like, { as:'dynamic_like', foreignKey: 'like_dynamic_id' })
+  Dynamic.belongsTo( User, { as:'dynamic_user', foreignKey: 'dynamic_user_id' });
+  Dynamic.hasMany( Like, { as:'dynamic_like', foreignKey: 'like_dynamic_id' });
+
+  Dynamic.hasMany( Comment, { as:'dynamic_comment', foreignKey: 'comment_dynamic_id' });
   // Like与各表关系
   Like.belongsTo( User, { as:'like_user', foreignKey: 'like_user_id' })
 
@@ -37,10 +39,11 @@ if(config.should_mysql_association){// 是否允许mysql使用外键,防止数�
 
   // Dynamic.hasMany( Comment, { as:'dynamic_comment', sourceKey: 'dynamic_module_id', foreignKey: 'module_id' })
   
-  // // Comment与各表关系
+  // Comment与各表关系
+  Comment.belongsTo( User, { as:'comment_user', foreignKey: 'comment_user_id' })
+  Comment.belongsTo( User, { as:'comment_to_user', foreignKey: 'comment_to_user_id' })
   // Comment.belongsTo( Dynamic, { as:'dynamic_comment', targetKey:'dynamic_module_id', foreignKey: 'module_id' })
-  // Comment.belongsTo( User, { as:'comment_user', foreignKey: 'comment_from_user_id' })
-  // Comment.belongsTo( User, { as:'comment_parent', foreignKey: 'comment_to_user_id' })
+  
 }
 
 
