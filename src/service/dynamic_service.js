@@ -38,6 +38,7 @@ class DynamicSerVice {
         },
         {
           association: 'dynamic_comment',// 关联评论表
+          as:'dynamic_comment',
           attributes: [ 'comment_id',"comment_father_id",'comment_content','createdAt' ],
           where:{ 
             'comment_dynamic_id': { [Op.col]: 'Dynamic.dynamic_id' } 
@@ -54,11 +55,11 @@ class DynamicSerVice {
             },
           ],
         },
-        
       ],
       // include: { all: true, nested: true }, // 递归获取与用户及其嵌套关联关联的所有模型[但同时两个外键指引无法处理会将所有关联的返回在实例上]
       order:[
-        ['created_at', 'DESC'] // 按照添加的顺序倒叙排列
+        ['created_at', 'DESC'], // 按照添加的顺序倒叙排列
+        ['dynamic_comment','created_at', 'ASC'] // 按照添加的顺序倒叙排列
       ],
       offset:Number(offset),// 偏移[跳过]多少条
       limit:Number(limit),// 限制每次显示几条
