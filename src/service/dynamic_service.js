@@ -66,7 +66,9 @@ class DynamicSerVice {
     }).catch((err)=>{
       throw new HttpException(err.message)
     })
-    return data
+    const count = await Dynamic.count();
+
+    return {data,page:{count,limit}}
   }
   // 删除动态
   async deleteDynamic(dynamic_id){

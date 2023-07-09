@@ -21,7 +21,7 @@ class DynamicController{
     const { limit,page } = ctx.request.query; // 获取上传参数
     let offset = limit * (page - 1); // 跳过多少个
     let res = await retrieveDynamic( limit,offset )
-    ctx.response.body = { code:0 , msg:'查询成功', data:res  }
+    ctx.response.body = { code:0 , msg:'查询成功', data:res.data,page:res.page  }
   }
   // 删除动态[同时需要删除与动态相关的评论以及点赞]
   async delDynamic(ctx,next){ 
