@@ -10,10 +10,10 @@ const client = redis.createClient({
 
 client.connect();
 client.on('ready', () => {
-  console.log('\x1b[32m%s\x1b[0m','Redis数据库已成功连接...')
+  console.log('\x1b[32m%s\x1b[0m','Redis数据库成功连接')
 });
 client.on('error', (err) => {
-  console.log('\x1b[33m%s\x1b[0m',`Redis数据库发生错误:\n${err}`)
+  console.log('\x1b[33m%s\x1b[0m',`Redis数据库:${err}`)
 });
 
 class RedisTool {

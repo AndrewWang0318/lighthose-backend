@@ -13,10 +13,19 @@ const sequelize = new Sequelize(
 )
 
 // 数据库连接
+// FgBlack = "\x1b[30m"
+// FgRed = "\x1b[31m"
+// FgGreen = "\x1b[32m"
+// FgYellow = "\x1b[33m"
+// FgBlue = "\x1b[34m"
+// FgMagenta = "\x1b[35m"
+// FgCyan = "\x1b[36m"
+// FgWhite = "\x1b[37m"
+// console.log('\x1b[36m%s\x1b[0m', '我是青色文字','颜色还原'); 
 sequelize.authenticate().then( ()=>{ 
   console.log('\x1b[32m%s\x1b[0m','Mysql数据库已成功连接...')
-}).catch( err=>{
-  console.log('\x1b[33m%s\x1b[0m',`Mysql数据库发生错误:\n${err}`)
+}).catch( err =>{
+  console.log('\x1b[31m%s\x1b[0m',`Mysql数据库: ${err}`)
 })
 
 // 同步所有模型alter force,
